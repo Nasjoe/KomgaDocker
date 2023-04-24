@@ -1,0 +1,36 @@
+version: "3"
+services:
+  komga:
+    image: gotson/komga
+    container_name: komga
+    volumes:
+      - ./config:/config
+      - /mnt/raidz/slaan/BDs:/data
+      - type: bind
+        source: /etc/timezone #alternatively you can use a TZ environment variable, like TZ=Europe/London
+        target: /etc/timezone
+        read_only: true
+    expose:
+      - 8080
+    # ports:
+      # - 8080:8080
+    user: "1000:1000"
+    # remove the whole environment section if you don't need it
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=frontend
+
+      - traefik.http.routers.komga.tls.certresolver=myresolver
+      - traefik.http.routers.komga.rule=Host(`komga.mike.codecommun.re`)
+      - traefik.http.services.komga.loadbalancer.server.port=8080
+
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx4g
+    restart: unless-stopped
+    networks:
+      - frontend
+
+networks:
+  frontend:
+    external: true
+
