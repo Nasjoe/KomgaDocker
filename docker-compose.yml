@@ -5,7 +5,7 @@ services:
     container_name: komga
     volumes:
       - ./config:/config
-      - /mnt/raidz/slaan/BDs:/data
+      - /mnt/raidz/slaan/KomgaData/Kom:/data
       - type: bind
         source: /etc/timezone #alternatively you can use a TZ environment variable, like TZ=Europe/London
         target: /etc/timezone
