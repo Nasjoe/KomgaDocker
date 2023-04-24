@@ -24,8 +24,8 @@ services:
       - traefik.http.routers.komga.rule=Host(`komga.mike.codecommun.re`)
       - traefik.http.services.komga.loadbalancer.server.port=8080
 
-    # environment:
-      # - JAVA_TOOL_OPTIONS=-Xmx4g
+    environment:
+      - JAVA_TOOL_OPTIONS=-Xmx4g
     restart: unless-stopped
     networks:
       - frontend
